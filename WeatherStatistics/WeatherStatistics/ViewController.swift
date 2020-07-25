@@ -7,47 +7,92 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var startDate: UIDatePicker!
     @IBOutlet weak var endDate: UIDatePicker!
-    @IBOutlet weak var airTemp: UILabel!
-    @IBOutlet weak var barPressure: UILabel!
-    @IBOutlet weak var dewPoint: UILabel!
-    @IBOutlet weak var relHumidity: UILabel!
-    @IBOutlet weak var windDir: UILabel!
-    @IBOutlet weak var windGust: UILabel!
-    @IBOutlet weak var windSpeed: UILabel!
+    @IBOutlet weak var meanTemp: UILabel!
+    @IBOutlet weak var medianTemp: UILabel!
+    @IBOutlet weak var meanPressure: UILabel!
+    @IBOutlet weak var medianPressure: UILabel!
+    @IBOutlet weak var meanSpeed: UILabel!
+    @IBOutlet weak var medianSpeed: UILabel!
+    @IBOutlet weak var activityView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var realm: Realm!
+    
+    @IBAction func startDateChanged(_ sender: UIDatePicker) {
+        if startDate.date >= endDate.date {
+            endDate.date = startDate.date
+        }
+    }
+    
+    @IBAction func endDateChanged(_ sender: UIDatePicker) {
+        if startDate.date >= endDate.date {
+            startDate.date = endDate.date
+        }
+    }
     
     @IBAction func updateDateRange(_ sender: UIButton) {
-        print("Start date: \(startDate.date)")
-        print("End date: \(endDate.date)")
-        airTemp.text = "some other value"
-        barPressure.text = "some other value some other value"
-        dewPoint.text = "some other value some other value"
-        relHumidity.text = "some other value some other value"
-        windDir.text = "some other value some other value"
-        windGust.text = "some other value some other value"
-        windSpeed.text = "some other value some other value"
+        activityView.isHidden = false
+      
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            self.updateDays()
+            self.activityView.isHidden = true
+        }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadInitialValues()
-
+        activityView.isHidden = true
+        loadRealm()
     }
     
-    private func loadInitialValues() {
-        airTemp.text = "potato"
-        barPressure.text = "some value"
-        dewPoint.text = "some value"
-        relHumidity.text = "some value"
-        windDir.text = "some value"
-        windGust.text = "some value"
-        windSpeed.text = "some value"
+    private func updateDays() {
+        
+    }
+    
+    private func showMessage(message: String) {
+        let alert = UIAlertController(title: "Missing Data", message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func findMean(a: [Double]) -> Double {
+        return 0
+    }
+    
+    private func findMedian(a: [Double]) -> Double {
+        return 0
+    }
+    
+    func loadRealm() {
+        do {
+            let fileManager = FileManager.default
+            let docURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("DayData.realm")
+            let bundleURL = Bundle.main.url(forResource: "DayData", withExtension: "realm")
+            
+            if !fileManager.fileExists(atPath: docURL.path) {
+                try fileManager.copyItem(at: bundleURL!, to: docURL)
+            }
+            
+            var config = Realm.Configuration()
+            config.objectTypes = [DayData.self]
+            config.fileURL = docURL
+            realm = try Realm(configuration: config)
+        } catch {
+            print(error)
+        }
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
 }
 

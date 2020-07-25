@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4096B50942F3A67F5F8BC60E /* Pods_WeatherStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E47244AD178406D7FDC891E4 /* Pods_WeatherStatistics.framework */; };
-		B5C27B6C24C7E74700D617E0 /* RealmReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C27B6B24C7E74700D617E0 /* RealmReader.swift */; };
+		B5BB438024CA27E100BE6481 /* DayData.realm in Resources */ = {isa = PBXBuildFile; fileRef = B5BB437F24CA27E100BE6481 /* DayData.realm */; };
+		B5C27B6C24C7E74700D617E0 /* DayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C27B6B24C7E74700D617E0 /* DayData.swift */; };
 		B5F8D5BE24C6CC5B00309926 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F8D5BD24C6CC5B00309926 /* AppDelegate.swift */; };
 		B5F8D5C024C6CC5B00309926 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F8D5BF24C6CC5B00309926 /* SceneDelegate.swift */; };
 		B5F8D5C224C6CC5B00309926 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F8D5C124C6CC5B00309926 /* ViewController.swift */; };
@@ -21,7 +22,8 @@
 /* Begin PBXFileReference section */
 		4793D6350E9CED1C78C38394 /* Pods-WeatherStatistics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherStatistics.release.xcconfig"; path = "Target Support Files/Pods-WeatherStatistics/Pods-WeatherStatistics.release.xcconfig"; sourceTree = "<group>"; };
 		95012AE84C5FB2F763B27B2C /* Pods-WeatherStatistics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherStatistics.debug.xcconfig"; path = "Target Support Files/Pods-WeatherStatistics/Pods-WeatherStatistics.debug.xcconfig"; sourceTree = "<group>"; };
-		B5C27B6B24C7E74700D617E0 /* RealmReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmReader.swift; sourceTree = "<group>"; };
+		B5BB437F24CA27E100BE6481 /* DayData.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = DayData.realm; sourceTree = SOURCE_ROOT; };
+		B5C27B6B24C7E74700D617E0 /* DayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayData.swift; sourceTree = "<group>"; };
 		B5F8D5BA24C6CC5B00309926 /* WeatherStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F8D5BD24C6CC5B00309926 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5F8D5BF24C6CC5B00309926 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,10 +82,11 @@
 				B5F8D5BD24C6CC5B00309926 /* AppDelegate.swift */,
 				B5F8D5BF24C6CC5B00309926 /* SceneDelegate.swift */,
 				B5F8D5C124C6CC5B00309926 /* ViewController.swift */,
-				B5C27B6B24C7E74700D617E0 /* RealmReader.swift */,
+				B5C27B6B24C7E74700D617E0 /* DayData.swift */,
 				B5F8D5C324C6CC5B00309926 /* Main.storyboard */,
 				B5F8D5C624C6CC5C00309926 /* Assets.xcassets */,
 				B5F8D5C824C6CC5C00309926 /* LaunchScreen.storyboard */,
+				B5BB437F24CA27E100BE6481 /* DayData.realm */,
 				B5F8D5CB24C6CC5C00309926 /* Info.plist */,
 			);
 			path = WeatherStatistics;
@@ -157,6 +160,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5BB438024CA27E100BE6481 /* DayData.realm in Resources */,
 				B5F8D5CA24C6CC5C00309926 /* LaunchScreen.storyboard in Resources */,
 				B5F8D5D224C6D5E400309926 /* DayData.csv in Resources */,
 				B5F8D5C724C6CC5C00309926 /* Assets.xcassets in Resources */,
@@ -213,7 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5C27B6C24C7E74700D617E0 /* RealmReader.swift in Sources */,
+				B5C27B6C24C7E74700D617E0 /* DayData.swift in Sources */,
 				B5F8D5C224C6CC5B00309926 /* ViewController.swift in Sources */,
 				B5F8D5BE24C6CC5B00309926 /* AppDelegate.swift in Sources */,
 				B5F8D5C024C6CC5B00309926 /* SceneDelegate.swift in Sources */,
