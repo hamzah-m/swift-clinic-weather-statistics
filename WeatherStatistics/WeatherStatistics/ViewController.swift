@@ -52,11 +52,26 @@ class ViewController: UIViewController {
         loadRealm()
     }
     
-    private func updateDays() {
+    func findAverages(_ data: Results<DayData>) {
+        var temps: [Double] = []
+        var speeds: [Double] = []
+        var pressures: [Double] = []
         
+        for day: DayData in data {
+            temps.append(day.AirTemp.value!)
+            speeds.append(day.WindSpeed.value!)
+            pressures.append(day.BarometricPress.value!)
+        }
+        
+        medianTemp.text = "\(findMedian(a: temps))"
+        meanTemp.text = "\(findMean(a: temps))"
+        meanPressure.text = "\(findMedian(a: pressures))"
+        medianPressure.text = "\(findMean(a: pressures))"
+        medianSpeed.text = "\(findMedian(a: speeds))"
+        meanSpeed.text = "\(findMean(a: speeds))"
     }
     
-    private func showMessage(message: String) {
+    private func showMessage(_ message: String) {
         let alert = UIAlertController(title: "Missing Data", message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(action)
@@ -64,11 +79,21 @@ class ViewController: UIViewController {
     }
     
     private func findMean(a: [Double]) -> Double {
-        return 0
+        var total: Double = 0
+        for num in a {
+            total += num
+        }
+        return total/Double(a.count)
     }
     
     private func findMedian(a: [Double]) -> Double {
-        return 0
+        let aSorted = a.sorted()
+        if aSorted.count % 2 == 0 {
+            let midIndex = aSorted.count/2 - 1
+            return findMean(a: [aSorted[midIndex], aSorted[midIndex + 1]])
+        }
+        let midIndex = Int(floor(Float(aSorted.count)/2.0))
+        return aSorted[midIndex]
     }
     
     func loadRealm() {
@@ -88,11 +113,41 @@ class ViewController: UIViewController {
         } catch {
             print(error)
         }
+        
+        updateDays()
     }
 
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
+ 
+    private func updateDays() {
+        let d1 = startDate.date
+        let d2 = endDate.date
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        
+        let startDate = Int(formatter.string(from: d1))!
+        let endDate = Int(formatter.string(from: d2))!
+        let data: Results<DayData> = realm.objects(DayData.self).filter("date >= \(startDate) AND date <= \(endDate)")
+        
+        if data.count < 2 {
+            showMessage("Insufficient data. Please change start and/or end date.")
+            return
+        }
+        
+        let dataForStartDate = (data[0].date.value! == startDate)
+        let dataForEndDate = (data.last!.date.value! == endDate)
+        
+        if !dataForStartDate {
+            showMessage("No data for start date.")
+        }
+        
+        if !dataForEndDate {
+            showMessage("No data for end date.")
+        }
+        
+        findAverages(data)
+    }
 }
 
